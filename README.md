@@ -14,25 +14,25 @@ Based on [f213/postgres-backup-s3](https://github.com/f213/postgres-backup-s3)
 
 # Environment variables configuration
 
-| Variable            | Required | Default   | Description                                                                     |
-| ------------------- | -------- | --------- | ------------------------------------------------------------------------------- |
-| PG_DATABASES        | ✅       | –         | List of databases to perform backup on. Format "database1 database2 database3"  |
-| PG_HOST             | ✅       | -         | PostgreSQL host                                                                 |
-| PG_PORT             | ❌       | 5432      | Database port                                                                   |
-| PG_USER             | ✅       | -         | PostgreSQL username                                                             |
-| PG_PASSWORD         | ✅       | -         | PostgreSQL password                                                             |
-| PG_OPTS             | ❌       | –         | Additional pg_dump options to use                                               |
-| S3_ENDPOINT         | ✅       | -         | S3 Endpoint                                                                     |
-| S3_REGION           | ❌       | us-west-1 | S3 Region                                                                       |
-| S3_BUCKET           | ✅       | -         | S3 Bucket                                                                       |
-| S3_PATH             | ❌       | database  | S3 Path relative to a bucket's root                                             |
-| S3_KEY_ID           | ✅       | -         | S3 Key ID                                                                       |
-| S3_ACCESS_KEY       | ✅       | -         | S3 Access key                                                                   |
-| S3_OPTS             | ❌       | -         | Additional opts for awscli                                                      |
-| WEBHOOK_START       | ❌       | -         | We'll make a GET query to this URL before backing up                            |
-| WEBHOOK_END         | ❌       | -         | GET query will be made to this URL after successful backup                      |
-| ENCRYPTION_PASSWORD | ❌       | -         | Secret for GPG symmetric encryption                                             |
-| SCHEDULE            | ❌       | **None**  | Cron-ish schedule. If empty or "**None**", single backup will start immediately |
+| Variable            | Required | Default     | Description                                                                     |
+| ------------------- | -------- | ----------- | ------------------------------------------------------------------------------- |
+| PG_DATABASES        | ✅       | –           | List of databases to perform backup on. Format "database1 database2 database3"  |
+| PG_HOST             | ✅       | -           | PostgreSQL host                                                                 |
+| PG_PORT             | ❌       | 5432        | Database port                                                                   |
+| PG_USER             | ✅       | -           | PostgreSQL username                                                             |
+| PG_PASSWORD         | ✅       | -           | PostgreSQL password                                                             |
+| PG_OPTS             | ❌       | –           | Additional pg_dump options to use                                               |
+| S3_ENDPOINT         | ✅       | -           | S3 Endpoint                                                                     |
+| S3_REGION           | ❌       | us-west-1   | S3 Region                                                                       |
+| S3_BUCKET           | ✅       | -           | S3 Bucket                                                                       |
+| S3_PATH             | ❌       | database    | S3 Path relative to a bucket's root                                             |
+| S3_KEY_ID           | ✅       | -           | S3 Key ID                                                                       |
+| S3_ACCESS_KEY       | ✅       | -           | S3 Access key                                                                   |
+| S3_OPTS             | ❌       | -           | Additional opts for awscli                                                      |
+| WEBHOOK_START       | ❌       | -           | We'll make a GET query to this URL before backing up                            |
+| WEBHOOK_END         | ❌       | -           | GET query will be made to this URL after successful backup                      |
+| ENCRYPTION_PASSWORD | ❌       | -           | Secret for GPG symmetric encryption                                             |
+| SCHEDULE            | ❌       | `**None**`  | Cron-ish schedule. If empty or `**None**`, single backup will start immediately |
 
 # Schedule
 
