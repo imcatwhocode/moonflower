@@ -24,7 +24,5 @@ jobs:
       with:
         context: .
         push: true
-        tags: 
-          imcatwhocode/moonflower:latest
-          imcatwhocode/moonflower:14
+        tags: imcatwhocode/moonflower:14
           
