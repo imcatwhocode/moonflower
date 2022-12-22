@@ -60,7 +60,8 @@ docker run --rm \
 # Example with backup every night at 01:00
 # Notice the "/etc/localtime" mount – it's mapping your host timezone to the container
 # Without this mount, container will always use the UTC+00:00 TZ
-docker run --rm \
+docker run \
+  --restart=always \
   -e SCHEDULE="0 0 1 * * *" \
   -v /etc/localtime:/etc/localtime:ro \
   -e PG_DATABASES="test testdb2" \
