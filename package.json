@@ -1,0 +1,17 @@
+{
+  "name": "twp",
+  "module": "index.ts",
+  "type": "module",
+  "devDependencies": {
+    "@types/node-cron": "^3.0.8",
+    "bun-types": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "chrono-node": "^2.7.0",
+    "node-cron": "^3.0.2",
+    "zx": "^7.2.3"
+  }
+}
