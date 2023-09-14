@@ -1,9 +1,9 @@
-import { LogEntry } from "zx";
+import { LogEntry } from 'zx';
 
 export type ParsedLogEntry = {
   prefix: string;
   message: string;
-}
+};
 
 const parseLogEntry = (entry: LogEntry): ParsedLogEntry => {
   let prefix = '';
@@ -44,10 +44,11 @@ const parseLogEntry = (entry: LogEntry): ParsedLogEntry => {
     prefix,
     message,
   };
-}
+};
 
 class LogBuffer {
   private buffer: string[];
+
   private secrets: string[] = [];
 
   constructor() {
@@ -57,14 +58,14 @@ class LogBuffer {
 
   wipeSecrets(message: string) {
     let newMessage = message;
-    this.secrets.forEach(secret => {
+    this.secrets.forEach((secret) => {
       newMessage = newMessage.replaceAll(secret, '********');
     });
     return newMessage;
   }
 
   addSecret(...args: (string | undefined)[]) {
-    const exists = args.filter(a => typeof a === 'string' && a.length > 0) as string[];
+    const exists = args.filter((a) => typeof a === 'string' && a.length > 0) as string[];
     this.secrets.push(...exists);
   }
 
@@ -76,9 +77,9 @@ class LogBuffer {
     const row = `[${timestamp}] ${prefix} ${content}`;
     this.buffer.push(row);
     if (entry.kind === 'stderr') {
-      console.error(row);
+      process.stderr.write(`${row}\n`);
     } else {
-      console.log(row);
+      process.stdout.write(`${row}\n`);
     }
   }
 
@@ -87,4 +88,4 @@ class LogBuffer {
   }
 }
 
-export default LogBuffer
+export default LogBuffer;

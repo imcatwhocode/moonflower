@@ -123,4 +123,4 @@ export type Configuration = {
      */
     schedule?: string;
   };
-}
+};

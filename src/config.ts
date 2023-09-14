@@ -4,9 +4,9 @@
  */
 
 import { validate } from 'node-cron';
-import { Configuration } from "./types";
-import { getDateTimeIn } from "./utils/date";
-import getConfigValue from "./utils/get-config-value";
+import { Configuration } from './types';
+import getDateTimeIn from './utils/date';
+import getConfigValue from './utils/get-config-value';
 
 const config: Configuration = {
   pg: {
@@ -42,7 +42,7 @@ const config: Configuration = {
 
   scheduler: {
     schedule: getConfigValue('SCHEDULE'),
-  }
+  },
 };
 
 // Check that at least one database is specified
@@ -52,13 +52,14 @@ if (config.pg.databases.length === 0) {
 
 // Check that S3 endpoint is a valid URL
 try {
+  // eslint-disable-next-line no-new -- URL.canParse is not available in Node/Bun yet
   new URL(config.s3.endpoint);
 } catch (_) {
   if (!config.s3.endpoint.startsWith('http')) {
-    throw new Error(`S3 endpoint must include protocol (http or https)`);
+    throw new Error('S3 endpoint must include protocol (http or https)');
   }
 
-  throw new Error(`Incorrect S3 endpoint URL: ${config.s3.endpoint}`)
+  throw new Error(`Incorrect S3 endpoint URL: ${config.s3.endpoint}`);
 }
 
 // Trim excess leading & trailing slashes from S3 path
@@ -85,6 +86,7 @@ if (config.s3.expiresIn) {
 // Check that start webhook is parsable with new URL
 if (config.webhook.start) {
   try {
+    // eslint-disable-next-line no-new -- URL.canParse is not available in Node/Bun yet
     new URL(config.webhook.start);
   } catch (_) {
     throw new Error(`Incorrect start webhook URL: ${config.webhook.start}`);
@@ -94,6 +96,7 @@ if (config.webhook.start) {
 // Check that success webhook is parsable with new URL
 if (config.webhook.success) {
   try {
+    // eslint-disable-next-line no-new -- URL.canParse is not available in Node/Bun yet
     new URL(config.webhook.success);
   } catch (_) {
     throw new Error(`Incorrect success webhook URL: ${config.webhook.success}`);
@@ -103,6 +106,7 @@ if (config.webhook.success) {
 // Check that failure webhook is parsable with new URL
 if (config.webhook.failure) {
   try {
+    // eslint-disable-next-line no-new -- URL.canParse is not available in Node/Bun yet
     new URL(config.webhook.failure);
   } catch (_) {
     throw new Error(`Incorrect failure webhook URL: ${config.webhook.failure}`);

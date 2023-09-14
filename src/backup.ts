@@ -1,8 +1,16 @@
 import 'zx/globals';
 import config from './config';
 import LogBuffer from './utils/log-buffer';
-import { post } from './utils/webhook';
-import { GNUPG_KEYCHAIN_LOCATION, getGPGEncryptArgs, getPgDumpArgs, getS3PutObjectRetentionArgs, getS3RemoveObjectArgs, getS3UploadArgs, getS3UploadString } from './cmd';
+import post from './utils/webhook';
+import {
+  GNUPG_KEYCHAIN_LOCATION,
+  getGPGEncryptArgs,
+  getPgDumpArgs,
+  getS3PutObjectRetentionArgs,
+  getS3RemoveObjectArgs,
+  getS3UploadArgs,
+  getS3UploadString,
+} from './cmd';
 
 /**
  * Performs a full database backup, including encryption, S3 upload & meta.
@@ -42,16 +50,16 @@ const importPublicKey = async (): Promise<string> => {
     throw new Error('Could not obtain public key ID');
   }
   return keyId;
-}
+};
 
 /**
  * Main backup routine.
  */
-export const execute = async () => {
+export default async () => {
   // Set up LogBuffer, add secrets and attach to zx.
   const lb = new LogBuffer();
   lb.addSecret(config.pg.password, config.encryption.passphrase, config.s3.secretKey);
-  $.log = entry => lb.push(entry);
+  $.log = (entry) => lb.push(entry);
 
   // Submit start webhook
   if (config.webhook.start) {
@@ -85,5 +93,3 @@ export const execute = async () => {
     throw error;
   }
 };
-
-execute();

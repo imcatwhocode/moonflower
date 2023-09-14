@@ -1,7 +1,9 @@
+import cron from 'node-cron';
+import backup from './src/backup';
 import config from './src/config';
 
 if (config.scheduler.schedule) {
-  // set a cronjob
+  cron.schedule(config.scheduler.schedule, backup);
 } else {
-  // perform one-shot backup
+  backup();
 }

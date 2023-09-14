@@ -4,17 +4,17 @@
 
 import 'zx/globals';
 import config from './config';
-import { getDateTimeIn } from './utils/date';
+import getDateTimeIn from './utils/date';
 
 export const GNUPG_KEYCHAIN_LOCATION = '/tmp/twinspur.gpg';
 
 export const getPgDumpArgs = (database: string, compress?: boolean) => {
   const cmd: string[] = [
-    "-h",
+    '-h',
     config.pg.host,
-    "-p",
+    '-p',
     config.pg.port,
-    "-U",
+    '-U',
     config.pg.user,
   ];
 
@@ -24,7 +24,7 @@ export const getPgDumpArgs = (database: string, compress?: boolean) => {
 
   cmd.push(database);
   return cmd;
-}
+};
 
 export const getS3UploadString = (database: string) => {
   const now = new Date().toISOString();
@@ -33,7 +33,7 @@ export const getS3UploadString = (database: string) => {
     : 'sql.gz';
 
   return `${config.s3.path}/${database}_${now}.${extension}`;
-}
+};
 
 export const getS3RemoveObjectArgs = (path: string) => {
   const cmd: string[] = [
@@ -48,11 +48,11 @@ export const getS3RemoveObjectArgs = (path: string) => {
   ];
 
   return cmd;
-}
+};
 
 export const getS3PutObjectRetentionArgs = (path: string) => {
   const policy = {
-    Mode: "GOVERNANCE",
+    Mode: 'GOVERNANCE',
     RetainUntilDate: getDateTimeIn(config.s3.governance as string),
   };
 
@@ -85,12 +85,12 @@ export const getS3UploadArgs = (path: string) => {
   if (config.s3.expiresIn) {
     cmd.push(
       '--expires',
-      getDateTimeIn(config.s3.expiresIn)
+      getDateTimeIn(config.s3.expiresIn),
     );
   }
 
   return cmd;
-}
+};
 
 export const getGPGEncryptArgs = (keyId?: string) => {
   if (config.encryption.passphrase) {
@@ -102,7 +102,9 @@ export const getGPGEncryptArgs = (keyId?: string) => {
       config.encryption.passphrase,
       '--symmetric',
     ];
-  } else if (config.encryption.publicKey) {
+  }
+
+  if (config.encryption.publicKey) {
     return [
       '--no-default-keyring',
       '--keyring',
@@ -114,8 +116,10 @@ export const getGPGEncryptArgs = (keyId?: string) => {
       '--recipient',
       keyId,
       '--trust-model',
-      'always'
+      'always',
     ];
   }
-};
 
+  // No encryption required
+  return [];
+};
