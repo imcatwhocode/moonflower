@@ -15,7 +15,7 @@ function getConfigValue(key: string, required?: boolean, defaultValue?: string) 
   }
 
   if (value) {
-    return value.replace(/^['"]|['"]$/g, '');
+    return value.trim().replace(/^['"]|['"]$/g, '');
   }
 
   return defaultValue;
