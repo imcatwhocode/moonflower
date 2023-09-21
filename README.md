@@ -24,7 +24,7 @@ docker run --rm \
   -e S3_BUCKET="pgs3-test" \
   -e S3_KEY_ID="xxxx" \
   -e S3_ACCESS_KEY="xxxx" \
-  imcatwhocode/moonflower
+  ghcr.io/imcatwhocode/moonflower
 ```
 
 Alternatively, set up regular backups every night at 1:00 AM on server's local time:
@@ -41,7 +41,7 @@ docker run \
   -e S3_BUCKET="pgs3-test" \
   -e S3_KEY_ID="xxxx" \
   -e S3_ACCESS_KEY="xxxx" \
-  imcatwhocode/moonflower
+  ghcr.io/imcatwhocode/moonflower
 ```
 
 ## Expiration
