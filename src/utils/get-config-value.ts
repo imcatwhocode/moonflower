@@ -14,7 +14,11 @@ function getConfigValue(key: string, required?: boolean, defaultValue?: string) 
     throw new Error(`Missing required environment variable ${key}`);
   }
 
-  return value || defaultValue;
+  if (value) {
+    return value.replace(/^['"]|['"]$/g, '');
+  }
+
+  return defaultValue;
 }
 
 export default getConfigValue;
